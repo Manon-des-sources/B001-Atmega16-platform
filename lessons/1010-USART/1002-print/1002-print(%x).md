@@ -59,7 +59,7 @@ void task_Mode_USART(void)
 ```
 case 0测试ok，测试print("%c%c%c%c%c%c\n\r",a, b, c);也ok<br>
 case 1的结果：<br>
-![icon](/1010-USART/1002-print/material/1002-c-case_1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-c-case_1.png)<br>
 将case 1改为如下可测试char a0[]：<br>
 ```java
         case 1: print("%c%c%c", a4[0], a1, a2);
@@ -79,10 +79,10 @@ unsigned char a4[] = { 64, 100, 56, 255, 42, 0 };
 print("[%s |%s| ]\n\r",a0, a4);
 ```
 输出为：<br>
-![icon](/1010-USART/1002-print/material/1002-s-s1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-s-s1.png)<br>
 Secure CRT在遇到a4[]中的255就不显示了、255及其后面的42(星号)都不显示了<br>
 而在逻辑分析仪里面是有这些数据的(a4[5] = 0 = '0'，不显示)：<br>
-![icon](/1010-USART/1002-print/material/1002-s-logic-1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-s-logic-1.png)<br>
 访问SRAM之外的地址时、要确保不会读到寄存器，所以%s有进行地址检查：<br>
 ```java
                 case 's':addr = sram_addr_overflow_check(va_arg(ap, int));
@@ -117,9 +117,9 @@ uint16_t sram_addr_overflow_check(uint16_t addr)
 print("%s\n\r",0x10);
 ```
 这个地址被重置为SRAM的首地址0x60、于是读到的是SRAM0x60处的数据而不是地址为0x10的寄存器R16：<br>
-![icon](/1010-USART/1002-print/material/1002-s-sram.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-s-sram.png)<br>
 Secure CRT输出：<br>
-![icon](/1010-USART/1002-print/material/1002-s-s2.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-s-s2.png)<br>
 
 3、%d<br>
 测试代码：<br>
@@ -131,7 +131,7 @@ print("%d,%d,%d,%d,%d,%d,%d\n\r",a5[0], a5[1], a5[2], a5[3], a5[4], a5[5], a5[6]
 print("%d,%d,%d,%d\n\r",a6[0], a6[1], a6[2], a6[3]);
 ```
 输出正常，%d是unsigned int类型输出格式，所以是带符号数：<br>
-![icon](/1010-USART/1002-print/material/1002-d-s1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-d-s1.png)<br>
 下面全部输出整个unsigned int类型：<br>
 ```java
          int  a5[] = { -32768, -32767, 100, 56, 255, 1000, 32767 };
@@ -228,11 +228,11 @@ int common_test(int data)
 Atmega16的结果将输出到Secure CRT的log文件<br>
 而VS2012的结果将输出到compare_L.txt文件<br>
 我们使用Beyond Compare软件比较compare_L.txt 和 Secure CRT的log文件：<br>
-![icon](/1010-USART/1002-print/material/1002-d-bc-1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-d-bc-1.png)<br>
 可以看出，二者一致，说明测试ok，%d输出整个signed int数据都是ok的<br>
 
 其中、第一个数据和最后一个数据不一样是因为格式的原因、同时PC端没有输出最后一个数据32767：<br>
-![icon](/1010-USART/1002-print/material/1002-d-bc2.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-d-bc2.png)<br>
 
 4、%l<br>
 测试代码：<br>
@@ -242,15 +242,15 @@ long int a10[] = { -2147483648, 0xFFFFFFFF, 0xFFFFFFFE, -10000, 0, 10000, 0x7FFF
 print("%l,%l,%l,%l,%l,%l,%l,%l\n\r",a10[0], a10[1], a10[2], a10[3], a10[4], a10[5], a10[6], a10[7]);
 ```
 a10[]的值：<br>
-![icon](/1010-USART/1002-print/material/1002-l-w1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-l-w1.png)<br>
 a10[]入栈后的情形：<br>
-![icon](/1010-USART/1002-print/material/1002-l-stack1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-l-stack1.png)<br>
 Debug看到、case %l 读到了32位数据：<br>
-![icon](/1010-USART/1002-print/material/1002-l-w2.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-l-w2.png)<br>
 解析也成功(0x80000000 = -2147483648)：<br>
-![icon](/1010-USART/1002-print/material/1002-l-sram1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-l-sram1.png)<br>
 Secure CRT接收到的输出也ok：<br>
-![icon](/1010-USART/1002-print/material/1002-l-s1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-l-s1.png)<br>
 
 下面进行100个负数边界值输出测试：<br>
 ```java
@@ -276,7 +276,7 @@ PC端：<br>
                 break;
 ```
 结果ok：<br>
-![icon](/1010-USART/1002-print/material/1002-l-bc-1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-l-bc-1.png)<br>
 
 5、%x<br>
 测试代码：<br>
@@ -293,15 +293,15 @@ unsigned long int a20[] = { 100 };
 print("%x,%x,%x,%x,%x,%x,%x\n\r",a0, a0[0], a4[0], a5[0], a6[1], a10[0], 0x10);
 ```
 测试结果：<br>
-![icon](/1010-USART/1002-print/material/1002-x-s1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-x-s1.png)<br>
 ipython计算结果：<br>
-![icon](/1010-USART/1002-print/material/1002-x-py-1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-x-py-1.png)<br>
 a0的地址就是 0x9C。<br>
 a10[0] = 0x80000000L是32位，而%x是16位的，所以这个%x只取了低16位的0x0000、得到0值，<br>
 剩下的高16位0x8000仍然在栈空间，会被下一个%x取到，因此最后一个%x得到负数0x8000。<br>
 所以最后一个%x得到0x8000，而我们的0x10虽然已经入栈、却没有被取到。<br>
 最后一个0x10在0x80000000的后面，栈空间的情况如下：
-![icon](/1010-USART/1002-print/material/1002-x-py-1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-x-py-1.png)<br>
 
 signed int遍历测试：<br>
 ```java
@@ -344,7 +344,7 @@ void task_Mode_USART(void)
 }
 ```
 和PC端输出的结果一致，测试结果ok：<br>
-![icon](/1010-USART/1002-print/material/1002-x-bc1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-x-bc1.png)<br>
 
 unsigned int遍历测试：<br>
 ```java
@@ -388,17 +388,17 @@ PC端：<br>
 ```
 测试结果ok<br><br>
 在[0,7FFF]范围内，两者结果一致：<br>
-![icon](/1010-USART/1002-print/material/1002-x-bc2.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-x-bc2.png)<br>
 
 而在[8000, FFFF]范围内，Atmega16端得到的是负数，所以会多出高8位的FFFF(负号)，如FFFF80000，<br>
 但PC端是32位的，在[8000, FFFF]范围内仍然是正数、所以没有高16位的FFFF(负号)。<br>
 开始出现负号的差异：<br>
-![icon](/1010-USART/1002-print/material/1002-x-bc3.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-x-bc3.png)<br>
 
 同时我们的%x是以32位来显示的，所以负数是显示了32位，而正数的高16位是0就没有显示。<br>
 PC端的unsigned int是32位没有翻转到负数，所以它的高16位都是0。<br>
 这个输出格式上负号的差异一致持续到最后：<br>
-![icon](/1010-USART/1002-print/material/1002-x-bc4.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-x-bc4.png)<br>
 最后Atmega16的unsigned int溢出到0值，而PC端加到第十六位。<br>
 
 6、%X<br>
@@ -416,16 +416,16 @@ unsigned long int a20[] = { 100 };
 print("%X,%X,%X,%X\n\r",a0, a0[0], a4[0], a5[0], a6[1], a10[0], a20[0]);
 ```
 Secure CRT收到的结果为：<br>
-![icon](/1010-USART/1002-print/material/1002-%X-s1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-%X-s1.png)<br>
 
 结果解释：<br>
 参数入栈后的结果：<br>
-![icon](/1010-USART/1002-print/material/1002-%X-stack-1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-%X-stack-1.png)<br>
 这些参数的值依次是：<br>
 a0的地址0x0093、a0[0]的值0x0061(入栈后由0x61提升为int型数据，就是16位的0x0061了)：<br>
-![icon](/1010-USART/1002-print/material/1002-%x-w1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-%x-w1.png)<br>
 a4[0]的值0x0040(同样被提升为16位数据)：<br>
-![icon](/1010-USART/1002-print/material/1002-%x-w2.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-%x-w2.png)<br>
 
 a5[0]的值0x8000(int型的-32768、其本身就是int型数据、不会被提升)<br>
 a6[1]的值0x8001(unsigned int型的32769)<br>
@@ -467,7 +467,7 @@ long int a10[] = { -2147483648, 0xFFFFFFFF, 0xFFFFFFFE, -10000, 0, 10000, 0x7FFF
                 step += ((-(long)2147483648 + 100) == a10[7]);
 ```
 二者的输出结果一致：<br>
-![icon](/1010-USART/1002-print/material/1002-%x-bc1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-%x-bc1.png)<br>
 
 7、%u<br>
 测试代码：<br>
@@ -484,11 +484,11 @@ unsigned long int a20[] = { 100 };
 print("%u,%u,%u,%u,%u,%u,%u,%u,%u\n\r",a0, a0[0], a4[0], a5[0], a6[1], a10[0], a20[0]);
 ```
 Secure CRT的结果：<br>
-![icon](/1010-USART/1002-print/material/1002-u-s1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-u-s1.png)<br>
 
 结果分析：<br>
 从0x043F开始、入栈的参数如下：<br>
-![icon](/1010-USART/1002-print/material/1002-u-stack1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-u-stack1.png)<br>
 第一个%u取出第一个16位数据0x00A2 = 162，<br>
 第二个%u取出第二个16位数据0x0061 = 97，<br>
 第三个%u取出第三个16位数据0x0040 = 64，<br>
@@ -538,7 +538,7 @@ int  a5[] = { -32768, -32767, 100, 56, 255, 1000, 32767 };
                 break;
 ```
 两者输出一致：<br>
-![icon](/1010-USART/1002-print/material/1002-u-bc1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-u-bc1.png)<br>
 
 用a6[0]从0加到32767的unsinged int遍历输出也一样ok。<br>
 
@@ -557,10 +557,10 @@ unsigned long int a20[] = { 100 };
 print("%U,%U,%U,%U,%U,%U,%U,%U,%U\n\r",a0, a0[0], a4[0], a5[0], a6[1], a10[0], a20[0]);
 ```
 Secure CRT输出结果：<br>
-![icon](/1010-USART/1002-print/material/1002-%u-s1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-%u-s1.png)<br>
 输出解释：<br>
 参数入栈后的情况如下：<br>
-![icon](/1010-USART/1002-print/material/1002-%u-stack1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-%u-stack1.png)<br>
 第一个%u取出第一个32位数据0x006100A2 = 6357154，<br>
 第二个%u取出第二个32位数据0x80000040 = 2147483712，<br>
 第三个%u取出第三个32位数据0x00008001 = 32769，<br>
@@ -569,7 +569,7 @@ Secure CRT输出结果：<br>
 第六个%u取出第六个32位数据0x21085F04 = 554196740，<br>
 第七个%u取出第七个32位数据0x20000319 = 536871705，这里已经超出了入栈参数的范围，<br>
 栈空间的这个位置的数据在每次运行时都可能不一样，所以Secure CRT接收到的也会不一样，比如不一样的某一次：<br>
-![icon](/1010-USART/1002-print/material/1002-%u-stack2.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-%u-stack2.png)<br>
 这个输出就是540476185。<br>
 第八个%u取出第八个32位数据，这里已经超出了栈空间的范围，我们看不到，只知道都到了一些数据<br>
 第九个%u取出第九个32位数据，这里已经超出了栈空间的范围，我们看不到，只知道都到了一些数据<br>
@@ -605,6 +605,6 @@ long int a10[] = { -(long)2147483648, 0xFFFFFFFF, 0xFFFFFFFE, -10000, 0, 10000, 
                 break;
 ```
 二者输出一致：<br>
-![icon](/1010-USART/1002-print/material/1002-%u-bc1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-%u-bc1.png)<br>
 
 unsigned long int边界遍历测试也ok。<br>
