@@ -7,7 +7,7 @@
 
 # 一、print()函数定义：<br>
 ```java
-// print()
+// void print(const char *fmt, ...)
 // 
 // 参数：fmt        格式控制字符串
 // 
