@@ -13,9 +13,8 @@
 3. 测试：lessons<br>
 
 **当前进度** = 未完成(进度详见Wiki中的Development log)<br>
-**[DOI](https://zenodo.org/badge/latestdoi/80401512)**
 
-|**模块列表**      | .
+|.                | .
 |---------------- | --------
 |                 |
 |**模块类型**     | **具体模块**
@@ -24,8 +23,9 @@
 |                 | scheduler, event manager, buffer manager,
 |3、Mod           | SPI, IIC, UART,
 |                 | digital tube display, key, IR,
-|4、Con           | modbus
-|                 |
+|                 | print(), 
+|4、Con           | modbus，
+|                 |
 |**文件命名分类**     | **举例**
 |0、系统调度相关.sys  | sys.event.c
 |1、BSP驱动.drives   | Drv_Timer.c
