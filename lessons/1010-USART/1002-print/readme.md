@@ -1,4 +1,4 @@
-**这是一个简化版的printf函数**<br>
+**这里将创建一个简化版的printf函数、并测试之**<br>
 
 # 概述：<br>
 1、.c和.h是最终的源代码文件，不是测试用的代码，测试的代码在各自的.md文件中<br>
@@ -46,6 +46,7 @@ typedef   char  * va_list;
 #define   va_start(ap,v)    (ap = (va_list)&v + _INTSIZEOF(v))                         // 让ap指向参数v的参数列表中的第一个参数
 #define   va_arg(ap,type)   (*(type*)((ap += _INTSIZEOF(type)) -  _INTSIZEOF(type)))   // 取出参数t、并让ap指向参数t的下一个参数
 #define   va_end(ap)        (ap = (va_list)0)
+#define   va_copy(dest, src)
 ```
 这些宏在不同的操作系统，有不同的实现方式，上面的只是其中一种<br>
 

@@ -1,5 +1,8 @@
+主要内容：<br>
+1. 测试USART初始化设置函数是否按照预期设定去工作
+
 **测试代码：**<br>
-```c
+```java
 // 用于发送的数据
 uint8_t buffer_usart[] = "123456";
 uint8_t buffer_end[] = "789\n\r";

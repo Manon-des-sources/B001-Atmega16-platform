@@ -26,6 +26,7 @@
 
 
 #include <avr/io.h>
+#include <stdarg.h>
 #include "sys_event.h"
 #include "sys_config.h"
 
