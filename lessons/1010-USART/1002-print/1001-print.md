@@ -265,9 +265,6 @@ print(char fmt[], ...)里目的参数列表'...'中的第一个参数(也就是f
 它的值是0x0005，这就是测试函数print("out1 = %d, out2 = % s\r\n", 5, buffer_usart); 里面的常数5，<br>
 它正好是fmt字符串后面的第一个参数。<br>
 
-从上图我们可以得到堆栈里面存放的参数列表如下：<br>
-![stack_3](/lessons/1010-USART/1002-print/material/stack_3.png)<br>
-
 接着我们来看常数5前后的两个参数。<br>
 首先、参数buffer_usart 在内存中的地址为0x0098：<br>
 ![buffer_usart](/lessons/1010-USART/1002-print/material/buffer_usart.png)<br>
@@ -276,9 +273,12 @@ print(char fmt[], ...)里目的参数列表'...'中的第一个参数(也就是f
 ![fmt](/lessons/1010-USART/1002-print/material/fmt.png)<br>
 
 而堆栈里面、常数5被放在0x0451地址处，它的上一个地址处存放的值是0x0098，正好是变量buffer_usart的地址，<br>
-它对应着一个指向变量buffer_usart的指针，它作为一个char 指针，<br>
-被放在print("out1 = %d, out2 = % s\r\n", 5, buffer_usart); 的最右边。<br>
-常数5的下一个地址处存放的值是0x0064，正好是fmt字符串"out1 = %d, out2 = % s\r\n"，它也是一个char 指针参数。<br>
+它对应着一个指向变量buffer_usart的指针，<br>
+它作为一个char 指针，被放在print("out1 = %d, out2 = % s\r\n", 5, buffer_usart); 的最右边。<br>
+常数5的下一个地址处存放的值是0x0064，正好是fmt字符串"out1 = %d, out2 = % s\r\n"的地址，它也是一个char 指针参数。<br>
+
+我们可以得到堆栈里面存放的参数列表如下：<br>
+![stack_3](/lessons/1010-USART/1002-print/material/stack_3.png)<br>
 
 这告诉我们：函数的参数是按照从右到左的顺序依次入栈的，所以总会保证在参数被入栈后、函数的第一个参数在栈顶。<br>
 这使得我们可以使用va_arg(ap, int)来依次顺序访问参数列表里面的变量。<br>
@@ -291,19 +291,20 @@ buffer的地址为0x0116：<br>
 ![ring_buffer](/lessons/1010-USART/1002-print/material/ring_buffer.png)<br>
 最后两个字节0x0D和0x0A就是\r和\n。<br>
 
-从print()控制变量可以看到，发送结束后，in和out再次重合(一开始它们都是0)，而num=0，表示buffer为空：<br>
+发送结束后，print()控制变量in和out再次重合(一开始它们都是0)，同时num=0，表示buffer为空：<br>
 ![print_ctal](/lessons/1010-USART/1002-print/material/print_ctal.png)<br>
 
 Secure CRT也收到了信息，光标在下一行(0x0D和0x0A(\r和\n)的效果)：<br>
 ![Secure_2](/lessons/1010-USART/1002-print/material/Secure_2.png)<br>
-但是这里的buffer_usart没有被发送出去，只发送了fmt字符串部分：out2 = % s\r\n。<br>
-这是因为out2 = % s\r\n里面，%和s之间多了一个空格，格式不对，所以print忽略了这个%格式控制符对应的参数，<br>
+但是这里的buffer_usart没有被发送出去，只发送了fmt格式字符串里面的out2 =  s\r\n。<br>
+这是因为out2 = % s\r\n里面，%和s之间多了一个空格，格式不对，所以print()忽略了这个%格式控制符对应的参数，<br>
 这正是print里面default: va_arg(ap, int);这一句作用，专门处理不正确的格式。<br>
+为了简化print()代码、这里只支持这种写法，如有需要、以后会进行改进<br>
 
 逻辑分析仪也正确的收到并解析出了这个环形buffer里面的数据：<br>
 ![Logic_2](/lessons/1010-USART/1002-print/material/Logic_2.png)<br>
 
-3、参数列表入栈情况确实表明参数都被提升为int型数据，而超过int宽度的整数数据将被截断<br>
+3、参数列表入栈情况确实表明参数都被提升为int型数据<br>
 测试代码：<br>
 ```java
 char buffer_usart[] = "s123456";
@@ -319,11 +320,17 @@ ap值：<br>
 ![stack_0449](/lessons/1010-USART/1002-print/material/stack_0449.png)<br>
 ![stack_5](/lessons/1010-USART/1002-print/material/stack_5.png)<br>
 
-变量d由123456798=0x75BCD1E变成了int型的0xCD1E，只保留了低16位。<br>
-而我们在代码里面将其转换为了32位的uint32_t 数据(Atmage16里面是unsigned long)，<br>
-而int 型的0xCD1E最高位为1，是负数，所以转换后的结果为0xFFFFCD1E，就得到Secure CRT收到的数据：<br>
+变量d由123456798=0x075BCD1E作为32位int型数据、可以完整的传入。<br>
+而我们在代码里面只读出了它的低16位：
+```java
+case 'd':print_buffer_data((uint32_t)va_arg(ap, int));  // int是16位、long才是32位
+         break;
+```
+并将其转换为了32位的uint32_t 数据，而int 型的0xCD1E最高位为1，是负数，<br>
+所以转换后的结果为0xFFFFCD1E，就得到Secure CRT收到的数据：<br>
 ![Secure_5](/lessons/1010-USART/1002-print/material/Secure_5.png)<br>
+下一个版本会改进成32位的%d格式输出。<br>
 
 这里正好应征了一点：<br>
-参数列表中的所有参数都被提升为int型数据、因为它们没有被指定参数的类型。<br>
+参数列表'...'中的所有参数都被提升为int型数据、因为它们没有被指定参数的类型。<br>
 char型的a和unsigned char型的b都是被提升到int型。<br>
