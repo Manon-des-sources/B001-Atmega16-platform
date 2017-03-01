@@ -5,15 +5,26 @@
 2、代码开发次序和代码的测试次序一致，<br>
 即1001-print.md -> 1002-print(%x).md<br>
 
-# 一、print()函数说明：<br>
-(0). 定义：void print(const char *fmt, ...);<br>
-(1). 通过格式控制字符串fmt可以确定有多少个参数<br>
-(2). 支持格式：%c,%s,%d(16位),%l(32位),%x(16位),%X(32位),%u(16位),%U(32位)，<br>
-_____可以带空格、但不能在%和d/c/s之间，举例：print("a = %d\n",a);<br>
-_____不支持%5d这类带宽度的格式<br>
-(3). 不要在中断中或抢占式任务中使用这个print函数，因为它是不可重入的，会修改全局的buffer<br>
+# 一、print()函数定义：<br>
+```java
+// print()
+// 
+// 参数：fmt        格式控制字符串
+// 
+// 说明：
+// (1). 支持格式：%c    char  字符
+//                %s    char *字符串
+//                %d    16位signed int
+//                %l    32位signed long int
+//                %u    16位unsigned int
+//                %U    32位unsigned long int
+//                %x    16位int的十六进制格式(负数会保留符号位)
+//                %X    32位long int的十六进制格式
+// (2). 空格不能在%和d/./x之间，错误举例：print("a = % d\n",a);
+// (3). 不要在中断中或抢占式任务中使用这个print函数，因为它是不可重入的，会修改全局的buffer
+```
 
-# 二、print()函数<br>
+# 二、print()函数实现<br>
 结构：<br>
 使用了环形缓冲器来接收所有传入print()的格式化字符串及变量数据<br>
 代码来源：http://blog.csdn.net/aizhiqing86/article/details/8570804<br>
