@@ -417,16 +417,16 @@ unsigned long int a20[] = { 100 };
 print("%X,%X,%X,%X\n\r",a0, a0[0], a4[0], a5[0], a6[1], a10[0], a20[0]);
 ```
 Secure CRT收到的结果为：<br>
-![icon](/lessons/1010-USART/1002-print/material/1002-%X-s1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-XX-s1.png)<br>
 
 结果解释：<br>
 参数入栈后的结果：<br>
-![icon](/lessons/1010-USART/1002-print/material/1002-%X-stack-1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-XX-stack-1.png)<br>
 这些参数的值依次是：<br>
 a0的地址0x0093、a0[0]的值0x0061(入栈后由0x61提升为int型数据，就是16位的0x0061了)：<br>
-![icon](/lessons/1010-USART/1002-print/material/1002-%x-w1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-XX-w1.png)<br>
 a4[0]的值0x0040(同样被提升为16位数据)：<br>
-![icon](/lessons/1010-USART/1002-print/material/1002-%x-w2.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-XX-w2.png)<br>
 
 a5[0]的值0x8000(int型的-32768、其本身就是int型数据、不会被提升)<br>
 a6[1]的值0x8001(unsigned int型的32769)<br>
@@ -468,7 +468,7 @@ long int a10[] = { -2147483648, 0xFFFFFFFF, 0xFFFFFFFE, -10000, 0, 10000, 0x7FFF
                 step += ((-(long)2147483648 + 100) == a10[7]);
 ```
 二者的输出结果一致：<br>
-![icon](/lessons/1010-USART/1002-print/material/1002-%x-bc1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-XX-bc1.png)<br>
 
 7、%u 16位unsigned int<br>
 测试代码：<br>
@@ -558,10 +558,10 @@ unsigned long int a20[] = { 100 };
 print("%U,%U,%U,%U,%U,%U,%U,%U,%U\n\r",a0, a0[0], a4[0], a5[0], a6[1], a10[0], a20[0]);
 ```
 Secure CRT输出结果：<br>
-![icon](/lessons/1010-USART/1002-print/material/1002-%u-s1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-uu-s1.png)<br>
 输出解释：<br>
 参数入栈后的情况如下：<br>
-![icon](/lessons/1010-USART/1002-print/material/1002-%u-stack1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-uu-stack1.png)<br>
 第一个%u取出第一个32位数据0x006100A2 = 6357154，<br>
 第二个%u取出第二个32位数据0x80000040 = 2147483712，<br>
 第三个%u取出第三个32位数据0x00008001 = 32769，<br>
@@ -570,7 +570,7 @@ Secure CRT输出结果：<br>
 第六个%u取出第六个32位数据0x21085F04 = 554196740，<br>
 第七个%u取出第七个32位数据0x20000319 = 536871705，这里已经超出了入栈参数的范围，<br>
 栈空间的这个位置的数据在每次运行时都可能不一样，所以Secure CRT接收到的也会不一样，比如不一样的某一次：<br>
-![icon](/lessons/1010-USART/1002-print/material/1002-%u-stack2.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-uu-stack2.png)<br>
 这个输出就是540476185。<br>
 第八个%u取出第八个32位数据，这里已经超出了栈空间的范围，我们看不到，只知道都到了一些数据<br>
 第九个%u取出第九个32位数据，这里已经超出了栈空间的范围，我们看不到，只知道都到了一些数据<br>
@@ -606,6 +606,6 @@ long int a10[] = { -(long)2147483648, 0xFFFFFFFF, 0xFFFFFFFE, -10000, 0, 10000, 
                 break;
 ```
 二者输出一致：<br>
-![icon](/lessons/1010-USART/1002-print/material/1002-%u-bc1.png)<br>
+![icon](/lessons/1010-USART/1002-print/material/1002-uu-bc1.png)<br>
 
 unsigned long int边界遍历测试也ok。<br>
