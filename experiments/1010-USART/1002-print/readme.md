@@ -8,9 +8,9 @@
 # 一、print()函数定义：<br>
 ```java
 // void print(const char *fmt, ...)
-// 
+//
 // 参数：fmt        格式控制字符串
-// 
+//
 // 说明：
 // (1). 支持格式：%c    char  字符
 //                %s    char *字符串
@@ -35,7 +35,7 @@ void print(cosnt char *fmt, ...);<br>
 fmt是格式控制字符串、后面的'...'称为参数列表，它使得print()成为了一个参数个数可变的函数<br>
 在调用print()时、所有参数从右到左依次入栈，结果就是fmt最后入栈、成为stack_top<br>
 而'...'里面的参数在fmt的后面依次排列，如下图所示：<br>
-![stack_5](/lessons/1010-USART/1002-print/material/stack_5.png)<br>
+![stack_5](/experiments/1010-USART/1002-print/material/stack_5.png)<br>
 
 # 三、可变参数函数需要使用的宏：<br>
 va_list类定义如下：<br>
@@ -86,4 +86,4 @@ float -> double<br>
 2、知道处理器的函数参数入栈顺序，通过参数fmt访问第二个参数的地址<br>
 3、最好每个参数的类型都固定，方便确定第三个第四个...参数的地址<br>
 4、比如发送数据包时、我们不知道现在一共产生了多少个数据包，但是可以一起都发送出去，哪怕数据包数量每次不同<br>
-![stack_5](/lessons/1010-USART/1002-print/material/stack_5.png)<br>
+![stack_5](/experiments/1010-USART/1002-print/material/stack_5.png)<br>

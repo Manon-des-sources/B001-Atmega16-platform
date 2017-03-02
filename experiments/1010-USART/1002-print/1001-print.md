@@ -261,19 +261,19 @@ void task_Mode_USART(void)
 ```
 1、函数的参数是按照从右到左的顺序依次入栈的<br>
 运行完va_start(ap, fmt)之后，ap = 0x0451：<br>
-![ap_0451](/lessons/1010-USART/1002-print/material/ap_0451.png)<br>
+![ap_0451](/experiments/1010-USART/1002-print/material/ap_0451.png)<br>
 
 print(char fmt[], ...)里目的参数列表'...'中的第一个参数(也就是fmt后面的第一个参数)被放在地址为0x0451的堆栈里面：<br>
-![stack_0451](/lessons/1010-USART/1002-print/material/stack_0451.png)<br>
+![stack_0451](/experiments/1010-USART/1002-print/material/stack_0451.png)<br>
 它的值是0x0005，这就是测试函数print("out1 = %d, out2 = % s\r\n", 5, buffer_usart); 里面的常数5，<br>
 它正好是fmt字符串后面的第一个参数。<br>
 
 接着我们来看常数5前后的两个参数。<br>
 首先、参数buffer_usart 在内存中的地址为0x0098：<br>
-![buffer_usart](/lessons/1010-USART/1002-print/material/buffer_usart.png)<br>
+![buffer_usart](/experiments/1010-USART/1002-print/material/buffer_usart.png)<br>
 
 再者、字符串fmt在内存中的地址为0x0064(对应第一个字符 'o' )：<br>
-![fmt](/lessons/1010-USART/1002-print/material/fmt.png)<br>
+![fmt](/experiments/1010-USART/1002-print/material/fmt.png)<br>
 
 而堆栈里面、常数5被放在0x0451地址处，它的上一个地址处存放的值是0x0098，正好是变量buffer_usart的地址，<br>
 它对应着一个指向变量buffer_usart的指针，<br>
@@ -281,7 +281,7 @@ print(char fmt[], ...)里目的参数列表'...'中的第一个参数(也就是f
 常数5的下一个地址处存放的值是0x0064，正好是fmt字符串"out1 = %d, out2 = % s\r\n"的地址，它也是一个char 指针参数。<br>
 
 我们可以得到堆栈里面存放的参数列表如下：<br>
-![stack_3](/lessons/1010-USART/1002-print/material/stack_3.png)<br>
+![stack_3](/experiments/1010-USART/1002-print/material/stack_3.png)<br>
 
 这告诉我们：函数的参数是按照从右到左的顺序依次入栈的，所以总会保证在参数被入栈后、函数的第一个参数在栈顶。<br>
 这使得我们可以使用va_arg(ap, int)来依次顺序访问参数列表里面的变量。<br>
@@ -291,21 +291,21 @@ print(char fmt[], ...)里目的参数列表'...'中的第一个参数(也就是f
 2、环形buffer的赋值情况<br>
 print()解析数据之后，会将字符都写入环形buffer。<br>
 buffer的地址为0x0116：<br>
-![ring_buffer](/lessons/1010-USART/1002-print/material/ring_buffer.png)<br>
+![ring_buffer](/experiments/1010-USART/1002-print/material/ring_buffer.png)<br>
 最后两个字节0x0D和0x0A就是\r和\n。<br>
 
 发送结束后，print()控制变量in和out再次重合(一开始它们都是0)，同时num=0，表示buffer为空：<br>
-![print_ctal](/lessons/1010-USART/1002-print/material/print_ctal.png)<br>
+![print_ctal](/experiments/1010-USART/1002-print/material/print_ctal.png)<br>
 
 Secure CRT也收到了信息，光标在下一行(0x0D和0x0A(\r和\n)的效果)：<br>
-![Secure_2](/lessons/1010-USART/1002-print/material/Secure_2.png)<br>
+![Secure_2](/experiments/1010-USART/1002-print/material/Secure_2.png)<br>
 但是这里的buffer_usart没有被发送出去，只发送了fmt格式字符串里面的out2 =  s\r\n。<br>
 这是因为out2 = % s\r\n里面，%和s之间多了一个空格，格式不对，所以print()忽略了这个%格式控制符对应的参数，<br>
 这正是print里面default: va_arg(ap, int);这一句作用，专门处理不正确的格式。<br>
 为了简化print()代码、这里只支持这种写法，如有需要、以后会进行改进<br>
 
 逻辑分析仪也正确的收到并解析出了这个环形buffer里面的数据：<br>
-![Logic_2](/lessons/1010-USART/1002-print/material/Logic_2.png)<br>
+![Logic_2](/experiments/1010-USART/1002-print/material/Logic_2.png)<br>
 
 3、参数列表入栈情况确实表明参数都被提升为int型数据<br>
 测试代码：<br>
@@ -317,11 +317,11 @@ uint16_t c = 12345;
 uint32_t d = 123456798;
 ```
 ap值：<br>
-![ap_0449](/lessons/1010-USART/1002-print/material/ap_0449.png)<br>
+![ap_0449](/experiments/1010-USART/1002-print/material/ap_0449.png)<br>
 
 参数入栈情况：<br>
-![stack_0449](/lessons/1010-USART/1002-print/material/stack_0449.png)<br>
-![stack_5](/lessons/1010-USART/1002-print/material/stack_5.png)<br>
+![stack_0449](/experiments/1010-USART/1002-print/material/stack_0449.png)<br>
+![stack_5](/experiments/1010-USART/1002-print/material/stack_5.png)<br>
 
 变量d由123456798=0x075BCD1E作为32位int型数据、可以完整的传入。<br>
 而我们在代码里面只读出了它的低16位：
@@ -331,7 +331,7 @@ case 'd':print_buffer_data((uint32_t)va_arg(ap, int));  // int是16位、long才
 ```
 并将其转换为了32位的uint32_t 数据，而int 型的0xCD1E最高位为1，是负数，<br>
 所以转换后的结果为0xFFFFCD1E，就得到Secure CRT收到的数据：<br>
-![Secure_5](/lessons/1010-USART/1002-print/material/Secure_5.png)<br>
+![Secure_5](/experiments/1010-USART/1002-print/material/Secure_5.png)<br>
 下一个版本会改进成32位的%d格式输出。<br>
 
 这里正好应征了一点：<br>
