@@ -11,4 +11,4 @@
 5. 空闲状态、起始位和停止位都由硬件自动设置<br>
 6. 9位格式的用法：第9位为1=addr，第9位为0=数据，第10位是校验位、如果有的话<br>
 7. 起始位是低电平(或下降沿)、数据在上升沿被接收端检测到，所以最后的停止位一定是高电平、以产生一个上升沿触发接收端接收最后一个位<br>
-![data frame](/lessons/1010-USART/1001-USART-option/material/data_frame.png)
+![data frame](/experiments/1010-USART/1001-USART-option/material/data_frame.png)

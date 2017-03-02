@@ -32,22 +32,6 @@ ReportSuppressedErrorsInMessages=0
 OutputPath=
 
 [Document1]
-DocumentPath=mini80开发板小系统.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-
-[Document2]
 DocumentPath=..\..\..\09-DXP\altium designer元件库大全\常用元件库.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -63,7 +47,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document3]
+[Document2]
 DocumentPath=..\..\..\09-DXP\altium designer元件库大全\插件.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -79,7 +63,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document4]
+[Document3]
 DocumentPath=..\..\..\09-DXP\altium designer元件库大全\单片机及相关.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -95,7 +79,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document5]
+[Document4]
 DocumentPath=..\..\..\09-DXP\altium designer元件库大全\78稳压块.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -111,7 +95,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document6]
+[Document5]
 DocumentPath=..\..\..\09-DXP\altium designer元件库大全\CD4000系列IC.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -127,7 +111,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document7]
+[Document6]
 DocumentPath=..\..\..\09-DXP\altium designer元件库大全\MyInt_Lib.LIBPKG
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -143,7 +127,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document8]
+[Document7]
 DocumentPath=..\..\..\09-DXP\altium designer元件库大全\PCB_Project1.PrjPCBStructure
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -159,7 +143,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document9]
+[Document8]
 DocumentPath=..\..\..\09-DXP\altium designer元件库大全\TTL74系列IC.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -175,7 +159,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document10]
+[Document9]
 DocumentPath=..\..\..\09-DXP\altium designer元件库大全\电池及电源.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -191,7 +175,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document11]
+[Document10]
 DocumentPath=..\..\..\09-DXP\altium designer元件库大全\电容.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -207,7 +191,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document12]
+[Document11]
 DocumentPath=..\..\..\09-DXP\altium designer元件库大全\电阻.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -223,7 +207,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document13]
+[Document12]
 DocumentPath=..\..\..\09-DXP\altium designer元件库大全\二极管.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -239,7 +223,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document14]
+[Document13]
 DocumentPath=..\..\..\09-DXP\altium designer元件库大全\感应元件.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -255,7 +239,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document15]
+[Document14]
 DocumentPath=..\..\..\09-DXP\altium designer元件库大全\继电器类元件.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -271,7 +255,7 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document16]
+[Document15]
 DocumentPath=..\..\..\09-DXP\altium designer元件库大全\模拟符号.SCHLIB
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -287,8 +271,24 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document17]
+[Document16]
 DocumentPath=..\..\..\09-DXP\altium designer元件库大全\模拟集成电路.SCHLIB
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+
+[Document17]
+DocumentPath=Atmega16-platform.SchDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0

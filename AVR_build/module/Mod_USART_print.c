@@ -275,7 +275,61 @@ void print(const char fmt[], ...)
 }
 
 
+// 下一个版本、将字符串解析独立出来
+/*
+typedef enum 
+{
+    c,s,d,l,u,U,x,X
+}E_PRINT_FORMAT;
 
+void print(const char fmt[], ...)
+{
+    bool     transfer = FALSE;
+    uint8_t *format   = (uint8_t *)fmt;
+    uint8_t  ch       = 0;
+    uint16_t addr     = 0;
+    va_list  ap       = NULL;
+
+    va_start(ap, fmt);
+
+    while('\0' != *format)
+    {
+        transfer = TRUE;
+
+        ch = format_check();  // 解析格式字符串
+        switch(ch)
+        {
+            case c: print_buffer_char((char)va_arg(ap, int));
+                    break;
+            case s: addr = sram_addr_overflow_check(va_arg(ap, int));
+                    print_buffer_string((char *)addr);
+                    break;
+            case d: print_buffer_data(va_arg(ap, int));
+                    break;
+            case l: print_buffer_data(va_arg(ap, long));
+                    break;
+            case u: print_buffer_udata((uint32_t)(va_arg(ap, int)) & 0x0000FFFF);  // 去掉符号位(负数int转化为无符号long的时候、高16位全是符号位FFFF)
+                    break;
+            case U: print_buffer_udata(va_arg(ap, long));
+                    break;
+            case x: print_buffer_hex(va_arg(ap, int));  // 保留高16位正好可以看到符号位
+                    break;
+            case X: print_buffer_hex(va_arg(ap, long));
+                    break;
+            default:va_arg(ap, int);  // 处理不对的格式
+                    print_buffer_char(*format);
+                    break;
+        }
+        format++;
+    }
+    // 触发数据发送(如果发送器正在发送，这个触发并不会影响正在发送的操作)
+    if(TRUE == transfer)
+    {
+        Mod_USART_transfer(print_data_out);
+    }
+    va_end(ap);
+}
+*/
 
 
 
