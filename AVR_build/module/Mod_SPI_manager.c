@@ -36,7 +36,15 @@ volatile uint32_t temp2014 = 0;
 volatile uint32_t temp2015 = 0;
 volatile uint32_t temp2020 = 0;
 
-static T_SPI_MGR_CTRL  SPI_mgr_ctrl;
+volatile static T_SPI_MGR_CTRL  SPI_mgr_ctrl = { .step     = 0,
+                                                 .end      = FALSE,
+                                                 .count    = 0,
+                                                 .number   = 0,
+                                                 .pBuffer  = NULL,
+                                                 .user     = 0,
+                                                 .suspend  = 0,
+                                                 .user_sus = 0
+                                               };
 
 // SPI接口用户管理器
 static pT_SPI_MGR_USER SPI_mgr_box[4];
@@ -63,16 +71,6 @@ static uint8_t SPI_MGR_buffer[6];
 void Mod_SPI_MGR_init(void)
 {
     uint8_t index;
-
-    // SPI管理器的初始操作状态
-    SPI_mgr_ctrl.step     = 0;
-    SPI_mgr_ctrl.end      = FALSE;
-    SPI_mgr_ctrl.count    = 0;
-    SPI_mgr_ctrl.number   = 0;
-    SPI_mgr_ctrl.pBuffer  = NULL;
-    SPI_mgr_ctrl.user     = 0;
-    SPI_mgr_ctrl.suspend  = 0;
-    SPI_mgr_ctrl.user_sus = 0;
 
     // SPI管理器初始化
     for(index = 0; index < _countof(SPI_mgr_box); index++)

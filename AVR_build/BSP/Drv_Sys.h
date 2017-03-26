@@ -32,8 +32,8 @@
 
 
 void Drv_sys_write_OSCCAL(void);
-void Drv_sys_set_digital_format(uint8_t format);
-uint16_t sram_addr_overflow_check(uint16_t addr);
+void Drv_sys_set_digital_format(const uint8_t format);
+uint16_t sram_addr_overflow_check(const uint16_t addr);
 void task_sys_enter_sleep(void);
 
 

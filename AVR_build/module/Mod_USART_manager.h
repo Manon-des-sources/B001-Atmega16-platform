@@ -36,7 +36,7 @@
 
 
 void Mod_USART_init(void);
-void Mod_USART_transfer(p_bool_funtion_uint8_t_p fun);
+void Mod_USART_transfer(p_bool_funtion_uint8_t const fun);
 void task_Mode_USART(void);
 
 

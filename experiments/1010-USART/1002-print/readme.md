@@ -70,13 +70,15 @@ v是参数列表'...'里面的第一个参数fmt，fmt通过格式符'%'告诉�
      将ap指针赋值为NULL，即0<br>
 
 
-# 四、不定参数列表'...'涉及到的类型提升问题<br>
+# 四、不定参数列表'...'涉及到的类型提升问题(类型转换)<br>
 在C语言中、如果函数的某一个形式参数没有指定参数类型，那么在调用他们时会根据传递进来的实参的类型进行类型提升：<br>
 ```c
 char、short -> int<br>
 int -> unsigned int<br>
 float -> double<br>
 ```
+其实质就是类型转换<br>
+
 参数列表'...'中的实际参数都没有指定类型，所以一定会被提升。<br>
 这就导致'...'里面的参数被传递到函数内部之后，他们的类型就变成了int、unsigned int、或double<br>
 也就是说、type不能是char、unsigned char、singed char、signed short、unsigned short、float<br>

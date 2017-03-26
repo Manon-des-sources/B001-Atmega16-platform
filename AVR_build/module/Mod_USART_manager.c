@@ -32,15 +32,15 @@ typedef struct
     uint8_t  number;  // 总的数据量
     uint8_t *data;    // 数据buffer
     uint8_t  end;     // 发送完成状态
-    p_bool_funtion_uint8_t_p fun;  // 执行用户指定的数据发送函数
+    p_bool_funtion_uint8_t fun;  // 执行用户指定的数据发送函数
 }T_USART_transfer_CTRL;
 
-T_USART_transfer_CTRL transfer_ctrl = { .count  = 0,
-                                        .number = 0,
-                                        .data   = NULL,
-                                        .end    = TRUE,
-                                        .fun    = NULL
-                                       };
+volatile T_USART_transfer_CTRL transfer_ctrl = { .count  = 0,
+                                                 .number = 0,
+                                                 .data   = NULL,
+                                                 .end    = TRUE,
+                                                 .fun    = NULL
+                                                };
 
 char buffer_usart[] = "s123456";
 
@@ -81,7 +81,7 @@ void Mod_USART_init(void)
 // (1). 
 // 
 // ==========================================================================================================
-void Mod_USART_transfer(p_bool_funtion_uint8_t_p fun)
+void Mod_USART_transfer(p_bool_funtion_uint8_t const fun)
 {
     if(NULL != fun)
     {
@@ -94,6 +94,7 @@ void Mod_USART_transfer(p_bool_funtion_uint8_t_p fun)
 
 char a1 = ' ';
 char a2 = ' ';
+signed char a9 = 0xC0;
 
          char a0[] = "abc12345";
 unsigned char a4[] = { 64, 100, 56, 255, 42, 0 };
@@ -114,7 +115,7 @@ void task_Mode_USART(void)
 
     switch(step)
     {
-        case 0: print("%l,%l\n\r",a20[0], a20[0]);
+        case 0: print("[%c],(%d),|%l|\n\r",a9, a9, a9, a9);
                 step = 20;
                 break;        
         case 1: print("%U%c%c", a20[0], a1, a2);

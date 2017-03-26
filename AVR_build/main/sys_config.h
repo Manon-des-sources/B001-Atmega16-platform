@@ -62,27 +62,31 @@ typedef enum
 // ==========================================================================================================
 #ifndef __STDINT_H_  // 整型部分已经在stdint.h中定义(stdint.h被包含在AVR Libc的inttypes.h)
 
-typedef   signed char          int8_t;
-typedef   signed int          int16_t;
-typedef   signed long         int32_t;
-typedef   signed long long    int64_t;
-typedef unsigned char         uint8_t;
-typedef unsigned int         uint16_t;
-typedef unsigned long        uint32_t;
-typedef unsigned long long   uint64_t;
+typedef   signed char         int8_t;
+typedef   signed int         int16_t;
+typedef   signed long        int32_t;
+typedef   signed long long   int64_t;
+typedef unsigned char        uint8_t;
+typedef unsigned int        uint16_t;
+typedef unsigned long       uint32_t;
+typedef unsigned long long  uint64_t;
 
 #endif  // #ifndef __STDINT_H_
 
-typedef          float     float_32_t;  // avr gcc只支持float_32_t
-typedef          double    float_64_t;
+typedef          float      float_32_t;  // avr gcc只支持float_32_t
+typedef          double     float_64_t;
 
 #ifndef bool
-typedef unsigned char      bool;
+typedef unsigned char       bool;
+#endif
+
+#ifndef size_t
+typedef unsigned int        size_t;
 #endif
 
 typedef void(*p_void_funtion_void)(void);
 typedef bool(*p_bool_funtion_void)(void);
-typedef bool(*p_bool_funtion_uint8_t_p)(uint8_t *);
+typedef bool(*p_bool_funtion_uint8_t)(uint8_t *);
 
 typedef union 
 {
@@ -105,6 +109,9 @@ typedef union
 #ifndef _countof
 #define _countof(x) (sizeof(x) / sizeof(x[0]))
 #endif
+
+// 结构体成员的偏移
+#define offset_of_st(st, member) (size_t)(&((st*)0)->member)
 
 // 逻辑值
 #ifndef TRUE
