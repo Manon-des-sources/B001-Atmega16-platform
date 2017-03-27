@@ -37,7 +37,7 @@
 // (1). 默认使用9位数据位宽、第9位是校验位，不需要手动写入、启动奇偶校验即可由硬件自动写入
 // (2). 写UCSRC时、需要将URSEL位写1
 // (3). 写UBRRH时、需要将URSEL位清0
-// (4). 写UCSRA时、需要将UDRE位清0
+// (4). 写UCSRA时、需要将FE位、DOR位、PE位清0
 // (5). 相同波特率下，倍速的误差比不倍速的小，因此这里启用倍速
 // (6). 8MHz下、115200的误差为-3.5%(倍速)、Secure CRT可以收到数据，但逻辑分析仪表示收到的数据中有一半左右是错误的
 //      而波特率更高的250000bps的误差为0，逻辑分析仪可以全部收对，也就是说误差太大就可能导致错误，这个需要测试
@@ -95,7 +95,7 @@ void Drv_USART_init(const uint8_t parity, const uint8_t char_size, const uint32_
 //       enable   = ENABLE,DISABLE
 // 
 // ==========================================================================================================
-void Drv_USART_INT_Enable(const uint8_t int_mode, const uint8_t enable)
+void Drv_USART_INT_Enable(const uint8_t int_mode, const bool enable)
 {
     if(USART_INT_MODE_RXC == int_mode)
     {
@@ -144,7 +144,7 @@ void Drv_USART_INT_Enable(const uint8_t int_mode, const uint8_t enable)
 // (3). 禁止发送器、TxD引脚将会恢复为为通用IO
 // 
 // ==========================================================================================================
-void Drv_USART_transfer_start(const uint8_t transfer, const uint8_t enable)
+void Drv_USART_transfer_start(const uint8_t transfer, const bool enable)
 {
     if(USART_TRANSFER_RX == transfer)
     {
@@ -167,5 +167,27 @@ void Drv_USART_transfer_start(const uint8_t transfer, const uint8_t enable)
         {
             UCSRB |=  (1 << TXEN);
         }
+    }
+}
+
+// ==========================================================================================================
+// USART 多机通信模式使能
+// 
+// 参数：enable = ENABLE,DISABLE
+// 
+// 说明：
+// (1). 写UCSRA时、需要将FE位、DOR位、PE位清0
+// ==========================================================================================================
+void Drv_USART_multi_enable(const bool enable)
+{
+    uint8_t temp = ( UCSRA & ~((1 << FE) | (1 << DOR) | (1 << PE)) );
+
+    if(DISABLE == enable)
+    {
+        UCSRA = temp & ~(1 << MPCM);
+    }
+    else
+    {
+        UCSRA = temp | (1 << MPCM);
     }
 }
