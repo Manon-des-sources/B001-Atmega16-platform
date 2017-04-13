@@ -336,6 +336,22 @@ DItemRevisionGUID=
 GenerateClassCluster=0
 
 [Document20]
+DocumentPath=Atmega16-platform.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=0
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+
+[Document21]
 DocumentPath=Atmega16-platform.PcbDoc
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -351,21 +367,9 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
-[Document21]
-DocumentPath=Atmega16-platform.SchDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
+[SearchPath1]
+Path=..\..\..\09-DXP\altium designer元件库大全\*.*
+IncludeSubFolders=1
 
 [Configuration1]
 Name=Default Configuration
@@ -1240,7 +1244,7 @@ L16=WWWWNWWNWWWNWWWNW
 L17=WNNNNNNNWNNNWWWWN
 
 [Annotate]
-SortOrder=3
+SortOrder=1
 SortLocation=0
 MatchParameter1=Comment
 MatchStrictly1=1
