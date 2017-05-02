@@ -50,7 +50,7 @@ void Drv_sys_write_OSCCAL(void)
 // 设置数据格式(范围：[2,16])
 // 
 // ==========================================================================================================
-void Drv_sys_set_digital_format(uint8_t format)
+void Drv_sys_set_digital_format(const uint8_t format)
 {
     if((format >= 2) && (format <= 16))
     {
@@ -68,7 +68,7 @@ void Drv_sys_set_digital_format(uint8_t format)
 // (2). 地址越界、就赋予RAMSTART(iom16.h)
 //
 // ==========================================================================================================
-uint16_t sram_addr_overflow_check(uint16_t addr)
+uint16_t sram_addr_overflow_check(const uint16_t addr)
 {
     uint16_t Fin = addr;
 

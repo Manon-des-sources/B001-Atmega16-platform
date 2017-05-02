@@ -110,7 +110,7 @@ void Mod_LED_display_init(void)
 // (4). 如果data为0或没有变化，就不需要计算
 // 
 // ==========================================================================================================
-bool Mod_LED_display_set_data(uint8_t format)
+bool Mod_LED_display_set_data(const uint8_t format)
 {
     uint8_t temp = 0;
 
@@ -211,7 +211,7 @@ void task_LED_display(void)
 // LED数码管显示(上层接口)
 // 
 // ==========================================================================================================
-void Mod_LED_display(uint32_t data)
+void Mod_LED_display(const uint32_t data)
 {
     sys_event_post(EVENT_SEG_UPDATE, data);
 }

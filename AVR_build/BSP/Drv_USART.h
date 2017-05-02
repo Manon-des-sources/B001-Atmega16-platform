@@ -81,8 +81,9 @@ typedef enum
 } DRV_USART_OPTION;
 
 void Drv_USART_init(const uint8_t parity, const uint8_t char_size, const uint32_t baud_rate);
-void Drv_USART_INT_Enable(const uint8_t int_mode, const uint8_t enable);
-void Drv_USART_transfer_start(const uint8_t transfer, const uint8_t enable);
+void Drv_USART_INT_Enable(const uint8_t int_mode, const bool enable);
+void Drv_USART_transfer_start(const uint8_t transfer, const bool enable);
+void Drv_USART_multi_enable(const bool enable);
 
 
 

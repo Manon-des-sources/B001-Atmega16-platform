@@ -33,7 +33,7 @@
 
 
 void Mod_LED_display_init(void);
-void Mod_LED_display(uint32_t data);
+void Mod_LED_display(const uint32_t data);
 void task_LED_display(void);
 
 

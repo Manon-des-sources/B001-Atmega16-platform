@@ -38,7 +38,7 @@ typedef struct
     p_void_funtion_void task;  // ÈÎÎñº¯Êý
 }T_sys_task;
 
-T_sys_task sys_task_ctrl[SYS_TASK_MAX];
+volatile T_sys_task sys_task_ctrl[SYS_TASK_MAX];
 
 
 // ==========================================================================================================
