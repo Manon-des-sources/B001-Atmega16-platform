@@ -12,7 +12,7 @@
 2. 电路：hardware<br>
 3. 测试：experiments<br>
 
-**当前进度** = 未完成(进度详见Wiki中的Development log)<br>
+**当前进度** = 详见Wiki中的Development log<br>
 
 |.                | .
 |---------------- | --------
