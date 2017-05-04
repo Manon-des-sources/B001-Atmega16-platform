@@ -11,6 +11,7 @@
 1. 源码：AVR_build<br>
 2. 电路：hardware<br>
 3. 测试：experiments<br>
+4. 文档：document<br>
 
 **当前进度** = 详见Wiki中的Development log<br>
 
@@ -22,7 +23,7 @@
 |2、sys           | sys init, sys warning, sys version,
 |                 | scheduler, event manager, buffer manager,
 |3、Mod           | SPI, IIC, UART,
-|                 | digital tube display, key, IR,
+|                 | LED-display, key, IR,
 |                 | print(),
 |4、Con           | modbus，
 |                 |
