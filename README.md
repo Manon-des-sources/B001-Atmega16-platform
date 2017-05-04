@@ -11,7 +11,7 @@
 1. 源码：AVR_build<br>
 2. 电路：hardware<br>
 3. 测试：experiments<br>
-4. 文档：document<br>
+4. 文档：documents<br>
 
 **当前进度** = 详见Wiki中的Development log<br>
 
