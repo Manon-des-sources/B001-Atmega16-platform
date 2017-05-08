@@ -50,7 +50,7 @@ typedef enum
     SPI_MODE_SLAVE = 0,
     SPI_MODE_MSTR  = 1,
 
-    SPI_SHIFT_MODE_00 = 0,  // 传输模式
+    SPI_SHIFT_MODE_00 = 0,  // 传输模式(见上表)
     SPI_SHIFT_MODE_01 = 1,
     SPI_SHIFT_MODE_02 = 2,
     SPI_SHIFT_MODE_03 = 3,
