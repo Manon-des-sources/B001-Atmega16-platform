@@ -17,7 +17,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // 
 // ---------------------------------
-// 本文定义了Atmega16下的SPI初始化
+// 本文定义了Atmega16下的SPI初始化等
 // 
 // ==========================================================================================================
 #ifndef __DRV_SPI_H__
