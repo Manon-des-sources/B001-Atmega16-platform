@@ -48,3 +48,10 @@ static p_void_funtion_void read_list[] =
     Drv_IIC_start,
     Drv_IIC_stop,
 };
+
+// 写操作的状态函数列表
+static p_void_funtion_void write_list[] = 
+{
+    Drv_IIC_start,
+    Drv_IIC_stop,
+};
