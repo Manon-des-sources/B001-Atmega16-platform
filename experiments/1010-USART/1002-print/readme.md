@@ -6,7 +6,7 @@
 即1001-print.md -> 1002-print(%x).md<br>
 
 # 一、print()函数定义：<br>
-```java
+```javascript
 // void print(const char *fmt, ...)
 //
 // 参数：fmt        格式控制字符串
@@ -39,7 +39,7 @@ fmt是格式控制字符串、后面的'...'称为参数列表，它使得print(
 
 # 三、可变参数函数需要使用的宏：<br>
 va_list类定义如下：<br>
-```c
+```javascript
 #include <stdarg.h>
 typedef   char  * va_list;
 #define   _INTSIZEOF(type)  ((sizeof(type) + sizeof(int) - 1) & ~(sizeof(int) - 1))    // 结果为sizeof(int)的整数倍
@@ -72,7 +72,7 @@ v是参数列表'...'里面的第一个参数fmt，fmt通过格式符'%'告诉�
 
 # 四、不定参数列表'...'涉及到的类型提升问题(类型转换)<br>
 在C语言中、如果函数的某一个形式参数没有指定参数类型，那么在调用他们时会根据传递进来的实参的类型进行类型提升：<br>
-```c
+```javascript
 char、short -> int<br>
 int -> unsigned int<br>
 float -> double<br>
