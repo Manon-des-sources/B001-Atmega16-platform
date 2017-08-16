@@ -73,9 +73,9 @@ v是参数列表'...'里面的第一个参数fmt，fmt通过格式符'%'告诉�
 # 四、不定参数列表'...'涉及到的类型提升问题(类型转换)<br>
 在C语言中、如果函数的某一个形式参数没有指定参数类型，那么在调用他们时会根据传递进来的实参的类型进行类型提升：<br>
 ```javascript
-char、short -> int<br>
-int -> unsigned int<br>
-float -> double<br>
+char、short -> int
+int -> unsigned int
+float -> double
 ```
 其实质就是类型转换<br>
 
