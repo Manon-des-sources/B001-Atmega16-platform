@@ -33,15 +33,30 @@ typedef struct
 {
     uint8_t in;     // 写指针
     uint8_t out;    // 读指针
-    uint8_t num;    // 已写入的数据量
+    uint8_t num;    // 已写入的数据量 
+    uint8_t overflow; // 溢出检测
 }T_PRINT_CTRL;
 
 T_PRINT_CTRL print_ctrl = { .in  = 0,
                             .out = 0,
-                            .num = 0
+                            .num = 0，
+                            .overflow = 0
                           };
 static uint8_t print_ring_buffer[PRINT_RING_BUFFER_MAX];
 static uint8_t data_part[10] = {0};  // 用于存放拆分后的32位十进制数
+
+
+// ==========================================================================================================
+// print_ctrl_add() 数据buffer溢出检测
+// 
+// 返回值值：Fin     =0：没有溢出
+//                  >0：最多溢出了多少字节
+// 
+// ==========================================================================================================
+uint8_t print_check_overflow(void)
+{
+    return print_ctrl.overflow;
+}
 
 
 // ==========================================================================================================
@@ -52,7 +67,7 @@ static uint8_t data_part[10] = {0};  // 用于存放拆分后的32位十进制数
 // ==========================================================================================================
 uint8_t print_ctrl_add(uint8_t p)
 {
-    return (PRINT_RING_BUFFER_MAX == (p + 1)) ? 0 : (p + 1);
+    return (PRINT_RING_BUFFER_MAX =< (p + 1)) ? 0 : (p + 1);
 }
 
 // ==========================================================================================================
@@ -66,12 +81,19 @@ uint8_t print_ctrl_add(uint8_t p)
 bool print_data_in(uint8_t data)
 {
     bool Fin = TRUE;
+    uint8_t temp;
 
-    if(print_ctrl.num < (PRINT_RING_BUFFER_MAX + 1))
+    if(print_ctrl.num < sizeof(print_ring_buffer))
     {
         print_ring_buffer[print_ctrl.in] = data;
         print_ctrl.in = print_ctrl_add(print_ctrl.in);
         print_ctrl.num++;
+        // 保存最大溢出字节数
+        if(print_ctrl.num > sizeof(print_ring_buffer))
+        {
+            temp = print_ctrl.num - sizeof(print_ring_buffer);
+            print_ctrl.overflow = (temp > print_ctrl.overflow) ? temp : print_ctrl.overflow ;
+        }
     }
     else
     {
